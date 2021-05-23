@@ -5,9 +5,7 @@ volumes:
   psysh-store:
 services:
   app:
-    build:
-      context: .
-      dockerfile: ./infra/docker/php/Dockerfile
+    image: ucanlab/docker-laravel-github-actions-app:latest
     volumes:
       - type: volume
         source: php-fpm-socket
@@ -31,9 +29,7 @@ services:
       - DB_PASSWORD=${DB_PASS:-secret}
 
   web:
-    build:
-      context: .
-      dockerfile: ./infra/docker/nginx/Dockerfile
+    image: ucanlab/docker-laravel-github-actions-web:latest
     ports:
       - target: 80
         published: ${WEB_PORT:-80}
@@ -50,9 +46,7 @@ services:
         target: /work/backend
 
   db:
-    build:
-      context: .
-      dockerfile: ./infra/docker/mysql/Dockerfile
+    image: ucanlab/docker-laravel-github-actions-db:latest
     ports:
       - target: 3306
         published: ${DB_PORT:-3306}
